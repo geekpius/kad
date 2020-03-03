@@ -1,0 +1,103 @@
+<?php
+    session_start();
+    require_once("../../models/DBLayer.php");
+    require_once("../functions.php");
+
+    $position=validate($_POST['position']);
+
+    $post = Model::first("SELECT * FROM positions WHERE name=:n LIMIT 1", array(':n'=>$position));
+  
+    if ($post['type']=='General'){
+        //if position type is for all voters
+        $totalVoters = Model::count("SELECT COUNT(*) FROM voters");
+        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>false));
+        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>true));
+        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p', array(':p'=>$position));
+        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p", array(':p'=>$position));
+    }else if ($post['type']=='SRC'){
+        //if position type is for SRC voters
+        $totalVoters = Model::countWhere("SELECT COUNT(*) FROM voters WHERE delegate=:d", array(':d'=>true));
+        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND delegate=:d", array(':s'=>false, ':d'=>true));
+        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND delegate=:d", array(':s'=>true, ':d'=>true));
+        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p', array(':p'=>$position));
+        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p", array(':p'=>$position));
+    }else{
+        //if position type is for all house
+        $totalVoters = Model::countWhere("SELECT COUNT(*) FROM voters WHERE house=:h", array(':h'=>$post['type']));
+        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND house=:h", array(':s'=>false, ':h'=>$post['type']));
+        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND house=:h", array(':s'=>true, ':h'=>$post['type']));
+        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p AND house=:h', array(':p'=>$position, ':h'=>$post['type']));
+        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p AND house=:h", array(':p'=>$position, ':h'=>$post['type']));
+    }
+?>
+
+
+<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> St. Louis Senior High School</span></div>
+<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> <?php echo $post['name']; ?> Election Result</span></div>
+<h5>Total Voters:&nbsp;&nbsp;<span class="text-primary"><?php echo $totalVoters; ?></span></h5>
+<h5>Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countVoted; ?></span></h5>
+<h5>Not Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countNotVoted; ?></span></h5>
+<hr>
+<?php 
+if(count($candidates)>1){ ?>
+    <h5><strong class="text-primary"><?php echo $post['name']; ?></strong></h5>
+    <h6 style="font-size: 13px">Total Valid Votes:&nbsp;&nbsp;<span class="text-success"><?php echo $sumVotes; ?></span></h6>
+    <h6 style="font-size: 13px">Invalid Votes(Skipped):&nbsp;&nbsp;<span class="text-danger"><?php echo ($countVoted-$sumVotes); ?></span></h6>
+    <table class="">
+    <?php 
+    foreach($candidates as $can){ ?>
+        <tr>
+            <td width="100px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="300px"><?php echo $can['name']; ?></td>
+            <td width="130px"><?php echo $can['vote']; ?></td>
+            <td width="250px">
+                <span class="pull-left mr-2"><strong><?php echo ($sumVotes!=0)? round(100*($can['vote']/$sumVotes),2):0; ?>%</strong></span>
+                <div class="progress-wrapper hidden-print">
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-primary" style="width:<?php echo ($sumVotes!=0)? round(100*($can['vote']/$sumVotes),2):0; ?>%"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <?php } ?>
+    </table><hr>
+<?php }else{ ?>
+    <h5><strong class="text-primary"><?php echo $post['name']; ?>&nbsp;&nbsp;(Unopposed)</strong></h5>
+    <h6 style="font-size: 13px">Total Votes:&nbsp;&nbsp;<span class="text-success"><?php echo $countVoted; ?></span></h6>
+    <table class="">
+    <?php 
+    foreach($candidates as $can){ ?>
+        <tr>
+            <td width="100px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="300px"><?php echo $can['name']; ?>&nbsp;&nbsp;(YES)</td>
+            <td width="130px"><?php echo $can['vote']; ?></td>
+            <td width="250px">
+                <span class="pull-left mr-2"><strong><?php echo ($sumVotes!=0)? round(100*($can['vote']/$countVoted),2):0; ?>%</strong></span>
+                <div class="progress-wrapper hidden-print">
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-primary" style="width:<?php echo ($sumVotes!=0)? round(100*($can['vote']/$countVoted),2):0; ?>%"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="100px"><img src="../assets/images/no-vote.jpg" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="300px">Voted (NO)</td>
+            <td width="130px"><?php echo ($countVoted-$sumVotes); ?></td>
+            <td width="250px">
+                <span class="pull-left mr-2"><strong><?php echo ($sumVotes!=0)? round(100*(($countVoted-$sumVotes)/$countVoted),2):0; ?>%</strong></span>
+                <div class="progress-wrapper hidden-print">
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-primary" style="width:<?php echo ($sumVotes!=0)? round(100*(($countVoted-$sumVotes)/$countVoted),2):0; ?>%"></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <?php } ?>
+    </table><hr>
+<?php  } ?>
+
+<div class="yesprint" style="display:none; margin-top: 10%">
+<p><strong>I,.......................................................................... as the Electoral Commission of St. Louis Senior High School hereby
+approve the above results guided by the law and constitution of this institution.</strong></p>
+</div>
