@@ -7,32 +7,24 @@
 
     $post = Model::first("SELECT * FROM positions WHERE name=:n LIMIT 1", array(':n'=>$position));
   
-    if ($post['type']=='General'){
+    if ($post['criteria']=='General' && $post['type']=='All'){
         //if position type is for all voters
         $totalVoters = Model::count("SELECT COUNT(*) FROM voters");
         $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>false));
         $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>true));
         $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p', array(':p'=>$position));
         $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p", array(':p'=>$position));
-    }else if ($post['type']=='SRC'){
-        //if position type is for SRC voters
-        $totalVoters = Model::countWhere("SELECT COUNT(*) FROM voters WHERE delegate=:d", array(':d'=>true));
-        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND delegate=:d", array(':s'=>false, ':d'=>true));
-        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND delegate=:d", array(':s'=>true, ':d'=>true));
-        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p', array(':p'=>$position));
-        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p", array(':p'=>$position));
     }else{
         //if position type is for all house
-        $totalVoters = Model::countWhere("SELECT COUNT(*) FROM voters WHERE house=:h", array(':h'=>$post['type']));
-        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND house=:h", array(':s'=>false, ':h'=>$post['type']));
-        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND house=:h", array(':s'=>true, ':h'=>$post['type']));
-        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p AND house=:h', array(':p'=>$position, ':h'=>$post['type']));
-        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p AND house=:h", array(':p'=>$position, ':h'=>$post['type']));
+        $totalVoters = Model::countWhere("SELECT COUNT(*) FROM voters WHERE gender=:g AND house=:h", array(':g'=>$post['criteria'], ':h'=>$post['type']));
+        $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND gender=:g AND house=:h", array(':s'=>false, ':g'=>$post['criteria'], ':h'=>$post['type']));
+        $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s AND gender=:g AND house=:h", array(':s'=>true, ':g'=>$post['criteria'], ':h'=>$post['type']));
+        $sumVotes = Model::sumWhere('vote','candidates','WHERE position=:p AND gender=:g AND house=:h', array(':p'=>$position, ':g'=>$post['criteria'], ':h'=>$post['type']));
+        $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p AND gender=:g AND house=:h", array(':p'=>$position, ':g'=>$post['criteria'], ':h'=>$post['type']));
     }
 ?>
 
 
-<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> St. Louis Senior High School</span></div>
 <div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> <?php echo $post['name']; ?> Election Result</span></div>
 <h5>Total Voters:&nbsp;&nbsp;<span class="text-primary"><?php echo $totalVoters; ?></span></h5>
 <h5>Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countVoted; ?></span></h5>
@@ -98,6 +90,6 @@ if(count($candidates)>1){ ?>
 <?php  } ?>
 
 <div class="yesprint" style="display:none; margin-top: 10%">
-<p><strong>I,.......................................................................... as the Electoral Commission of St. Louis Senior High School hereby
+<p><strong>I,.......................................................................... as the Electoral Commission of ....................................... hereby
 approve the above results guided by the law and constitution of this institution.</strong></p>
 </div>

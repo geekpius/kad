@@ -38,7 +38,6 @@ $_SESSION['_token']=bin2hex(openssl_random_pseudo_bytes(16));
         <div class="card card-authentication1 mx-auto my-5">
             <div class="card-body">
              <div class="card-content p-2">
-                <div class="text-center mb-3"><img src="assets/images/logo.png" width="120" height="120" alt="logo" class="img-responsive"></div>
                 <div id="myErrorMessage"></div>                 
                 <form id="formSignIn">
                     <input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>" readonly>

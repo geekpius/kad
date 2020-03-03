@@ -8,7 +8,7 @@
       <meta name="description" content="Electronic voting for ePower-House"/>
       <meta name="author" content="T.K.Pius Geek @ VibTech"/>
       <meta name="csrf-token" content="{{ csrf_token() }}">
-      <title>ePower-House - WELCOME <?php echo $user['name']; ?></title>
+      <title>True Voting - WELCOME <?php echo $user['name']; ?></title>
       <!--favicon-->
       <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon"/>
       <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -24,7 +24,7 @@
         /*form styles*/
         #msform {
             width: 700px;
-            margin: 50px auto;
+            margin: 30px auto;
             text-align: center;
             position: relative;
             margin-top: 25px;
@@ -181,6 +181,7 @@
 
      <!-- body start--> 
 
+     <div class="col-sm-12 text-primary mt-1" style="font-size: 12px"><a href="logout.php"><?php echo $user['name']; ?></a> IS VOTING</div>
     <div class="col-sm-12">
     <?php  require_once("../models/DBLayer.php"); $positions = Model::all('positions');?>
     <!-- multistep form -->
@@ -190,7 +191,7 @@
             <!-- progressbar -->
         <?php 
         foreach($positions as $pos){
-            if($pos['type']=='General'){
+            if($pos['criteria']=='General' && $pos['type']=='All'){
                 //candidates for all voters
                 $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY id", array(':p'=>$pos['name']));
                 if(count($candidates)!=1){ ?>
@@ -247,64 +248,8 @@
                     </select>
                 </fieldset>
             <?php }
-            }else if($pos['type']=="SRC" && $user['delegate']==1){
-                //candidates for only delegates
-                $candidates =  Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY id", array(':p'=>$pos['name']));
-                if(count($candidates)!=1){ ?>
-                 <fieldset>
-                    <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                    <table class="table table-hover table-condensed" id="cssTable">
-                    <?php foreach($candidates as $can){ ?>
-                        <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="110" height="110" class="img-rounded img-responsive img-thumbnail" /></td>
-                            <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
-                            <td align="center" valign="middle" width="50px">
-                                <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                        <tr>
-                            <td>
-                                <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="Skipped" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> Skip</button>
-                            </td>
-                            <td colspan="2"></td>
-                        </tr>
-                    </table>
-
-                    <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" class="s_n" style="height: 51px; display:none !important;">
-                        <option value="Skipped">Skipped</option>
-                        <?php foreach($candidates as $can){ ?>
-                        <option value="<?php echo $can['name']; ?>"><?php echo $can['name']; ?></option>
-                        <?php } ?>
-                    </select>
-                </fieldset>
-            <?php }else{ ?>
-                <fieldset>
-                    <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                    <table class="table table-hover table-condensed" id="cssTable">
-                    <?php
-                        foreach($candidates as $can){ ?>
-                        <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail"/></td>
-                            <td width="300px" align="center"><?php echo $can['name']; ?></td>
-                            <td align="right" width="50px">
-                                <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
-                                <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="No" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> No</button>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </table>
-
-                    <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" style="height: 51px; display: none;">
-                        <option value="No">No</option>
-                        <?php foreach($candidates as $can){ ?>
-                        <option value="<?php echo $can['name']; ?>"><?php echo $can['name']; ?></option>
-                        <?php } ?>
-                    </select>
-                </fieldset>
-            <?php }
             }else{
-                if($pos['type']==$user['house']){
+                if($pos['criteria']==$user['gender'] && $pos['type']==$user['house']){
                     //candidates for only voter house
                     $candidates =  Model::filter("SELECT * FROM candidates WHERE position=:p AND house=:h ORDER BY id", array(':p'=>$pos['name'], ':h'=>$user['house']));
                     if(count($candidates)!=1){ ?>
