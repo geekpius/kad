@@ -5,6 +5,7 @@
 
     $position=validate($_POST['position']);
 
+    $gs = Model::first("SELECT * FROM general_settings WHERE id=:id", array(':id'=>1)); 
     $post = Model::first("SELECT * FROM positions WHERE name=:n LIMIT 1", array(':n'=>$position));
   
     if ($post['criteria']=='General' && $post['type']=='All'){
@@ -25,7 +26,8 @@
 ?>
 
 
-<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> <?php echo $post['name']; ?> Election Result</span></div>
+<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"><?php echo $gs['name']; ?> Election Result</span></div>
+<div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> <?php echo $post['name']; ?></span></div>
 <h5>Total Voters:&nbsp;&nbsp;<span class="text-primary"><?php echo $totalVoters; ?></span></h5>
 <h5>Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countVoted; ?></span></h5>
 <h5>Not Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countNotVoted; ?></span></h5>
@@ -90,6 +92,6 @@ if(count($candidates)>1){ ?>
 <?php  } ?>
 
 <div class="yesprint" style="display:none; margin-top: 10%">
-<p><strong>I,.......................................................................... as the Electoral Commission of ....................................... hereby
+<p><strong>I,.......................................................................... as the Electoral Commission of <?php echo $gs['name']; ?> hereby
 approve the above results guided by the law and constitution of this institution.</strong></p>
 </div>

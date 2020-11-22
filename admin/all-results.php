@@ -31,6 +31,7 @@
     $countVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>true));
     $countNotVoted = Model::countWhere("SELECT COUNT(*) FROM voters WHERE status=:s", array(':s'=>false));
     $positions = Model::all('positions');
+    $gs = Model::first("SELECT * FROM general_settings WHERE id=:id", array(':id'=>1)); 
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -42,7 +43,7 @@
                 <div class="col-sm-12"><a href="javascript:void(0);" class="mb-2 ml-5 btn_print"><i class="fa fa-print"></i> Print</a></div>
                 <div class="col-sm-1"></div>
                 <div class="col-sm-10" id="printOut">
-                    <div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"> All Election Results</span></div>
+                    <div class="text-center"><span class="text-danger text-uppercase" style="text-decoration: underline"><?php echo $gs['name']; ?> Election Results</span></div>
                     <h5>Total Voters:&nbsp;&nbsp;<span class="text-primary"><?php echo $totalVoters; ?></span></h5>
                     <h5>Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countVoted; ?></span></h5>
                     <h5>Not Voted:&nbsp;&nbsp;<span class="text-primary"><?php echo $countNotVoted; ?></span></h5>
@@ -184,7 +185,7 @@
                     ?>
 
                     <div class="yesprint" style="display:none; margin-top: 10%">
-                    <p><strong>I,.......................................................................... as the Electoral Commission of ..................................... hereby
+                    <p><strong>I,.......................................................................... as the Electoral Commissionner of <?php echo $gs['name']; ?> hereby
                     approve the above results guided by the law and constitution of this institution.</strong></p>
                     </div>
                 </div>

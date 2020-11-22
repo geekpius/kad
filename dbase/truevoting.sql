@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2020 at 01:24 PM
+-- Generation Time: Nov 22, 2020 at 09:19 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `kad`
+-- Database: `truevoting`
 --
 
 -- --------------------------------------------------------
@@ -38,6 +38,18 @@ CREATE TABLE `candidates` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`id`, `name`, `position`, `gender`, `house`, `vote`, `image`, `created_at`) VALUES
+(1, 'FIIFI GEEK', 'PRESIDENT', 'Male', NULL, 0, 'cand_architecture-3309203_640.jpg', '2020-11-22 18:41:00'),
+(2, 'GRACE SARPONG', 'PRESIDENT', 'Female', NULL, 0, 'cand_church-2464899_640.jpg', '2020-11-22 18:42:00'),
+(3, 'OHENEMAA FIDELIA', 'PRESIDENT', 'Female', NULL, 0, 'cand_bed-142517_640.jpg', '2020-11-22 18:42:00'),
+(4, 'KWAKYE CHRISTIANA ABIGAIL', 'GENERAL SECRETARY', 'Female', NULL, 0, 'cand_bathroom-1228427_640.jpg', '2020-11-22 18:42:00'),
+(5, 'KWAME MILTON', 'PRO', 'Male', NULL, 0, 'cand_dining-room-3108037_640.jpg', '2020-11-22 18:43:00'),
+(6, 'GALLY SANDRA', 'PRO', 'Female', NULL, 0, 'cand_lifestyle-3107041_640.jpg', '2020-11-22 18:43:00');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +58,7 @@ CREATE TABLE `candidates` (
 
 CREATE TABLE `general_settings` (
   `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `timer` varchar(191) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -53,8 +66,8 @@ CREATE TABLE `general_settings` (
 -- Dumping data for table `general_settings`
 --
 
-INSERT INTO `general_settings` (`id`, `timer`) VALUES
-(1, '2020-11-22 18:21');
+INSERT INTO `general_settings` (`id`, `name`, `timer`) VALUES
+(1, 'VibTech University of Ghana', '2020-11-22 23:16');
 
 -- --------------------------------------------------------
 
@@ -83,6 +96,15 @@ CREATE TABLE `positions` (
   `maxcon` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `positions`
+--
+
+INSERT INTO `positions` (`id`, `name`, `criteria`, `type`, `maxcon`, `created_at`) VALUES
+(1, 'PRESIDENT', 'General', 'All', 3, '2020-11-22 18:41:00'),
+(2, 'GENERAL SECRETARY', 'General', 'All', 1, '2020-11-22 18:41:00'),
+(3, 'PRO', 'General', 'All', 2, '2020-11-22 18:41:00');
 
 -- --------------------------------------------------------
 
@@ -123,6 +145,17 @@ CREATE TABLE `voters` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `voters`
+--
+
+INSERT INTO `voters` (`id`, `access_number`, `name`, `gender`, `house`, `cls`, `verify`, `status`, `created_at`) VALUES
+(1, '12344', 'FIIFI GEEK', 'Male', NULL, NULL, 0, 0, '2020-11-22 19:34:00'),
+(2, '12345', 'GRACE SARPONG', 'Female', NULL, NULL, 0, 0, '2020-11-22 19:36:00'),
+(3, '12346', 'OHENEMAA FIDELIA', 'Female', NULL, NULL, 0, 0, '2020-11-22 19:36:00'),
+(4, '12347', 'KWAKYE CHRISTIANA ABIGAIL', 'Female', NULL, NULL, 0, 0, '2020-11-22 19:47:00'),
+(5, '12348', 'GENEVIEVE ARABA ANSAH', 'Female', NULL, NULL, 0, 0, '2020-11-22 19:48:00');
 
 -- --------------------------------------------------------
 
@@ -213,7 +246,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `general_settings`
@@ -231,7 +264,7 @@ ALTER TABLE `houses`
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -243,7 +276,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `voters`
 --
 ALTER TABLE `voters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `voter_carts`
