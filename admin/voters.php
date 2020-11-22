@@ -253,7 +253,7 @@ $("#formAddNew").on("submit", function(e){
     $('#formAddNew :text, #formAddNew select').each(function() {
         var $this = $(this);
         
-        if(!$this.val()) {
+        if(!$this.val() && $this.attr('name') != 'form' && $this.attr('name') != 'house') {
             valid = false;
             $this.parents('.validate').find('span').text('The '+$this.attr('name').replace(/[\_]+/g, ' ')+' field is required');
         }

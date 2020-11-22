@@ -6,7 +6,7 @@
     $fullname=validate($_POST['fullname']);
     $position=validate($_POST['position']);
     $gender=validate($_POST['gender']);
-    $house=validate($_POST['house']);
+    $house=empty(validate($_POST['house']))? null: validate($_POST['house']);
     $image = $_SESSION['image'];
 
     if(empty($fullname) || empty($position) || empty($gender) || empty($image)){

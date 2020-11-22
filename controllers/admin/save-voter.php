@@ -6,10 +6,10 @@
     $access_number=validate($_POST['access_number']);
     $fullname=validate($_POST['fullname']);
     $gender=validate($_POST['gender']);
-    $form=validate($_POST['form']);
-    $house=validate($_POST['house']);
+    $form=empty(validate($_POST['form']))? null: validate($_POST['form']);
+    $house=empty(validate($_POST['house']))? null: validate($_POST['house']);
 
-    if(empty($access_number) || empty($gender) || empty($fullname) || empty($form) || empty($house)){
+    if(empty($access_number) || empty($gender) || empty($fullname)){
         echo 'All fields are required';
     }
     else
