@@ -122,8 +122,8 @@ function timer(){
    /*  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
     + minutes + "m " + seconds + "s "; */
 
-    document.getElementById("demo").innerHTML = '<h4><span class="badge badge-danger">'+days+'d </span> <span class="badge badge-danger">'+hours+'h </span> '+
-    '<span class="badge badge-danger">'+minutes+'m </span> <span class="badge badge-danger">'+seconds+'s </span></h4>';
+    document.getElementById("demo").innerHTML = '<h4 style="font-size: 30px"></span> <span class="badge badge-success">'+hours+'h </span> '+
+    '<span class="badge badge-success">'+minutes+'m </span> <span class="badge badge-success">'+seconds+'s </span></h4>';
 
     // If the count down is finished, write some text
     if (distance < 0) {
