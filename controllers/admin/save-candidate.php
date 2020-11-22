@@ -9,7 +9,7 @@
     $house=validate($_POST['house']);
     $image = $_SESSION['image'];
 
-    if(empty($fullname) || empty($position) || empty($gender) || empty($house) || empty($image)){
+    if(empty($fullname) || empty($position) || empty($gender) || empty($image)){
         echo 'All fields are required';
     }
     else

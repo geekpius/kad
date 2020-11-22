@@ -43,8 +43,8 @@
                   <div class="card gradient-primary rounded-0">
                      <div class="card-body text-center">
                        <h5 class="text-uppercase text-white"><?php echo $can['name'];?></h5>
-                       <a href="javascripts:void(0);" data-toggle="popover" data-trigger="focus" data-placement="left" data-html=true data-title='<img src="../assets/images/candidates/<?php echo $can['image'];?>" alt="<?php echo $can['name'];?>" class="img-responsive img-thumbnail" height="200" width="200">'>
-                            <img src="../assets/images/candidates/<?php echo $can['image'];?>" alt="<?php echo $can['name'];?>" class="img-responsive img-thumbnail" height="80" width="80" title="Toggle photo to enlarge" data-toggle="tooltip" data-placement="right">  
+                       <a href="javascripts:void(0);" data-toggle="popover" data-trigger="focus" data-placement="left" data-html=true data-title='<img src="../assets/images/candidates/<?php echo $can['image'];?>" alt="<?php echo $can['name'];?>" class="img-responsive img-thumbnail" height="250" width="250">'>
+                            <img src="../assets/images/candidates/<?php echo $can['image'];?>" alt="<?php echo $can['name'];?>" class="img-responsive img-thumbnail" height="160" width="160" title="Toggle photo to enlarge" data-toggle="tooltip" data-placement="right">  
                         </a>
                         <div>
                             <span class="my-5 text-white">Position: <?php echo $can['position'];?> </span><br>
@@ -93,12 +93,12 @@
                 <form id="formAddNew">
                     <input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>">
                     <div class="form-group validate">
-                        <label>Full Name</label>
+                        <label>Full Name*</label>
                         <input type="text" name="fullname" class="form-control" id="fullname" oninput="GetUpperCase('fullname');" placeholder="Enter Full Name">
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="input-3">Position</label>
+                        <label for="input-3">Position*</label>
                         <select name="position" class="form-control" id="position">
                             <option value="">-Select-</option>
                             <?php $positions = Model::all('positions'); 
@@ -109,7 +109,7 @@
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="input-3">Gender</label>
+                        <label for="input-3">Gender*</label>
                         <select name="gender" class="form-control" id="gender">
                             <option value="">-Select-</option>
                             <option value="Male">Male</option>
@@ -230,7 +230,7 @@ $("#formAddNew").on("submit", function(e){
     $('#formAddNew input, #formAddNew select').each(function() {
         var $this = $(this);
         
-        if(!$this.val()) {
+        if(!$this.val() && $this.attr("name") != "house") {
             valid = false;
             $this.parents('.validate').find('span').text('The '+$this.attr('name').replace(/[\_]+/g, ' ')+' field is required');
         }

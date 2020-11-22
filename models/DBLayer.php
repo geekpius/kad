@@ -4,7 +4,7 @@
         public static function connection()
         {
             try{
-                $con=new PDO('mysql:host=localhost;dbname=kad;charset=utf8mb4', 'root', '');
+                $con=new PDO('mysql:host=localhost;dbname=truevoting;charset=utf8mb4', 'root', '');
                 $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $con->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
                 return $con;

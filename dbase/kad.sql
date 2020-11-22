@@ -32,7 +32,7 @@ CREATE TABLE `candidates` (
   `name` varchar(191) NOT NULL,
   `position` varchar(191) NOT NULL,
   `gender` varchar(191) NOT NULL,
-  `house` varchar(191) NOT NULL,
+  `house` varchar(191) DEFAULT NULL,
   `vote` int(11) NOT NULL DEFAULT 0,
   `image` varchar(191) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
