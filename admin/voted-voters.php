@@ -34,7 +34,9 @@
           <table id="example" class="table table-striped table-borderless">
             <thead>
                 <tr>
-                    <th>Reset</th>
+                    <?php if($user['role']=='administrator'){ ?>
+                        <th>Reset</th>
+                    <?php } ?>
                     <th>Access No#</th>
                     <th>Fullname</th>
                     <th>Gender</th>
@@ -48,9 +50,11 @@
                 $voters= Model::filter("SELECT * FROM voters WHERE status=:v", array(':v'=>true));
                 foreach($voters as $voter){ ?>
                 <tr class="records">
+                    <?php if($user['role']=='administrator'){ ?>
                     <td>
                         <a href="javascript:void();" data-id="<?php echo $voter['id']; ?>" data-number="<?php echo $voter['access_number']; ?>" title="Reset Inconvience" data-toggle="tooltip" class="text-success btn_reset"><i class="fa fa-times-circle-o fa-lg"></i></a>
                     </td>
+                    <?php } ?>
                     <td><?php echo $voter['access_number']; ?></td>
                     <td><?php echo ucwords($voter['name']); ?></td>
                     <td><?php echo ucwords($voter['gender']); ?></td>

@@ -1,4 +1,4 @@
-<?php include('../middleware/verifyadmin.php'); ?>
+<?php include('../middleware/verifyadmin.php'); if($user['role']!='administrator'){ header("Location: dashboard.php"); } ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,6 +96,7 @@
                         <select name="user_type" class="form-control" id="basic-select user_type">
                             <option value="">-Select-</option>
                             <option value="administrator">Administrator</option>
+                            <option value="ec">ec</option>
                             <option value="verifier">Verifier</option>
                         </select>
                         <span class="text-danger small" role="alert"></span>

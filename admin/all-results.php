@@ -1,4 +1,4 @@
-<?php include('../middleware/verifyadmin.php'); ?>
+<?php include('../middleware/verifyadmin.php'); if($user['role']!='administrator'){ header("Location: dashboard.php"); } ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

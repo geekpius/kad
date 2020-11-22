@@ -33,7 +33,8 @@
        </a>
      </li>
      
-     <li>
+    <?php if($user['role'] == 'administrator'){ ?>
+    <li>
       <a href="settings.php" class="waves-effect">
         <i class="fa fa-cog"></i> <span>Settings</span>
       </a>
@@ -43,7 +44,10 @@
          <i class="fa fa-user-circle"></i> <span>Users</span>
        </a>
      </li>
-     <li>
+     <?php } ?>
+
+    <?php if($user['role'] != 'verifier'){ ?>
+    <li>
       <a href="houses.php" class="waves-effect">
         <i class="fa fa-home"></i> <span>Houses</span>
       </a>
@@ -62,8 +66,8 @@
        <a href="voters.php" class="waves-effect">
          <i class="fa fa-address-card"></i> <span>Voters</span>
        </a>
-     </li>   
-
+     </li>  
+    <?php }?>
      <li>
        <a href="verification.php" class="waves-effect">
          <i class="fa fa-check"></i> <span>Verification</span>
@@ -83,21 +87,25 @@
       </ul>
     </li>
     
-     <li>
-      <a href="javaScript:void();" class="waves-effect">
-        <i class="zmdi zmdi-chart"></i> <span>Election Results</span>
-        <i class="fa fa-angle-left float-right"></i>
-      </a>
-      <ul class="sidebar-submenu">
-        <li><a href="single-results.php"><i class="zmdi zmdi-dot-circle-alt"></i> Single Position</a></li>
-        <li><a href="all-results.php"><i class="zmdi zmdi-dot-circle-alt"></i> All Position</a></li>
-        <!-- <li><a href="winners.php"><i class="zmdi zmdi-dot-circle-alt"></i> Winners</a></li> -->
-      </ul>
-    </li>
+     <?php if($user['role'] == 'administrator'){ ?>
+       <li>
+       <a href="javaScript:void();" class="waves-effect">
+         <i class="zmdi zmdi-chart"></i> <span>Election Results</span>
+         <i class="fa fa-angle-left float-right"></i>
+       </a>
+       <ul class="sidebar-submenu">
+         <li><a href="single-results.php"><i class="zmdi zmdi-dot-circle-alt"></i> Single Position</a></li>
+         <li><a href="all-results.php"><i class="zmdi zmdi-dot-circle-alt"></i> All Position</a></li>
+         <!-- <li><a href="winners.php"><i class="zmdi zmdi-dot-circle-alt"></i> Winners</a></li> -->
+       </ul>
+     </li>
+     <?php } ?>
      
      <br>
      <li><a href="javaScript:void(0);" class="waves-effect"><i class="zmdi zmdi-coffee text-danger"></i> <span>Production version 1.1</span></a></li>
+     <?php if($user['role'] == 'administrator'){ ?>
      <li><a href="javascript:void(0);" class="waves-effect myDataBackup"><i class="fa fa-database text-primary"></i> <span>Backup Data</span></a></li>
+     <?php } ?>
    </ul>
   
   </div>

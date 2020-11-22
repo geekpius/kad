@@ -1,4 +1,4 @@
-<?php include('../middleware/verifyadmin.php'); if(isset($_SESSION['image'])){ $image = $_SESSION['image']; unlink("../assets/images/candidates/".$image); unset($_SESSION['image']); } ?>
+<?php include('../middleware/verifyadmin.php');  if($user['role'] =='verifier'){ header("Location: dashboard.php"); } if(isset($_SESSION['image'])){ $image = $_SESSION['image']; unlink("../assets/images/candidates/".$image); unset($_SESSION['image']); } ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
