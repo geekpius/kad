@@ -3,11 +3,12 @@
     
     class Setting{
 
-        public function setTime($endDate, $endTime){
+        public function setTime($name, $endDate, $endTime){
             $date = $endDate.' '.$endTime;
             $conn = DB::connection();
             try{
-                $stmt=$conn->prepare("UPDATE general_settings SET timer=:d");
+                $stmt=$conn->prepare("UPDATE general_settings SET name=:n, timer=:d");
+                $stmt->bindParam(':n', $name);
                 $stmt->bindParam(':d', $date);
                 $stmt->execute();
                 return 'success';

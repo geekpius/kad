@@ -31,10 +31,21 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title">Voting Closing Date and Time</div><hr>
+                        <?php
+                        require_once("../models/DBLayer.php");
+                        $gs = Model::first("SELECT * FROM general_settings WHERE id=:id", array(':id'=>1));        
+                        ?>
+                            <div class="card-title">Voting Settings</div><hr>
                             <form id="formVotingTime">   
                                 <div class="row">
                                     <input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>">
+                                    <div class="col-sm-12">
+                                        <div class="form-group validate">
+                                            <label for="input-1">Institution Name</label>
+                                            <input type="text" name="name" value="<?php echo $gs['name']; ?>" class="form-control">
+                                            <span class="text-danger small" role="alert"></span>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-8">
                                         <div class="form-group validate">
                                             <label for="input-1">End Date</label>
@@ -117,7 +128,7 @@ $("#formVotingTime").on('submit', function(e){
                     if(resp=='success'){
                         swal({
                             title: "Set",
-                            text: "Voting end time is set",
+                            text: "Voting settings is set",
                             type: "success",
                             confirmButtonClass: "btn-primary btn-sm",
                             confirmButtonText: "OKAY",
@@ -135,7 +146,6 @@ $("#formVotingTime").on('submit', function(e){
                         });
                     }
                 
-                    $("#formVotingTime")[0].reset();
                     $('.btn_update_time').html('<i class="fa fa-refresh"></i> Update').attr('disabled', false);
                 },
                 error: function(resp){

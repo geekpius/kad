@@ -89,17 +89,17 @@
                 <form id="formAddNew">
                     <input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>">
                     <div class="form-group validate">
-                        <label for="input-1">Access Number</label>
+                        <label for="input-1">Access Number*</label>
                         <input type="text" name="access_number" class="form-control" placeholder="Enter Access Number">
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="input-1">Full Name</label>
+                        <label for="input-1">Full Name*</label>
                         <input type="text" name="fullname" class="form-control" id="fullname" oninput="GetUpperCase('fullname');" placeholder="Enter Full Name">
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="input-3">Gender</label>
+                        <label for="input-3">Gender*</label>
                         <select name="gender" class="form-control" id="gender">
                             <option value="">-Select-</option>
                             <option value="Male">Male</option>
@@ -167,6 +167,7 @@
                     <div class="form-group validate">
                         <label for="input-3">House</label>
                         <select name="house" class="form-control" id="house1">
+                        <option value="">Select</option>
                         <?php 
                             $houses = Model::all('houses');
                             foreach($houses as $house){ ?>
@@ -338,7 +339,7 @@ $("#formEditVoter").on("submit", function(e){
     $('#formEditVoter input, #formEditVoter select').each(function() {
         var $this = $(this);
         
-        if(!$this.val()) {
+        if(!$this.val() && $this.attr('name') != "form" && $this.attr('name') != 'house') {
             valid = false;
             $this.parents('.validate').find('span').text('The '+$this.attr('name').replace(/[\_]+/g, ' ')+' field is required');
         }

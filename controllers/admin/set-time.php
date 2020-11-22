@@ -3,10 +3,11 @@
     require_once("Setting.php");
     require_once("../functions.php");
 
+    $name=validate($_POST['name']);
     $end_date=validate($_POST['end_date']);
     $end_time=validate($_POST['end_time']);
 
-    if(empty($end_date) || empty($end_time)){
+    if(empty($name) ||empty($end_date) || empty($end_time)){
         echo 'All fields are required';
     }
     else
@@ -16,7 +17,7 @@
                 echo ('Invalid CSRF token');
             else:
                 $setting = new Setting;
-                echo $setting->setTime($end_date, $end_time);
+                echo $setting->setTime($name, $end_date, $end_time);
             endif;
         endif;
     }
