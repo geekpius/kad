@@ -45,7 +45,7 @@ $_SESSION['_token']=bin2hex(openssl_random_pseudo_bytes(16));
                    <div class="form-group validate">
                     <div class="position-relative has-icon-left">
                         <label for="username" class="sr-only">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username">
+                        <input type="text" name="username" class="form-control" placeholder="Username" autofocus>
                           <div class="form-control-position">
                              <i class="icon-user"></i>
                          </div>

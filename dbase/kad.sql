@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 03, 2020 at 04:42 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.1.33
+-- Host: localhost
+-- Generation Time: Nov 22, 2020 at 01:24 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -39,14 +38,6 @@ CREATE TABLE `candidates` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `candidates`
---
-
-INSERT INTO `candidates` (`id`, `name`, `position`, `gender`, `house`, `vote`, `image`, `created_at`) VALUES
-(1, 'FIIFI PIUS', 'BOYS PREFECT', 'Male', 'House1', 0, 'cand_17993555.jpg', '2020-03-03 15:10:00'),
-(2, 'KEZIAH OPOKU GYASI', 'GIRLS PREFECT', 'Female', 'House2', 0, 'cand_cand_ANGELA ANSERE BOATENG.jpg', '2020-03-03 15:14:00');
-
 -- --------------------------------------------------------
 
 --
@@ -63,7 +54,7 @@ CREATE TABLE `general_settings` (
 --
 
 INSERT INTO `general_settings` (`id`, `timer`) VALUES
-(1, '2020-03-02 20:00');
+(1, '2020-11-22 18:21');
 
 -- --------------------------------------------------------
 
@@ -77,16 +68,6 @@ CREATE TABLE `houses` (
   `alias` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `houses`
---
-
-INSERT INTO `houses` (`id`, `name`, `alias`, `created_at`) VALUES
-(1, 'YAA ASANTEWAA', 'House1', '2020-02-25 10:31:00'),
-(2, 'MARY JOANNES', 'House2', '2020-02-25 11:43:00'),
-(3, 'KOFI ANNAN', 'House1', '2020-03-03 14:18:00'),
-(4, 'CHARLES LUANGA', 'House2', '2020-03-03 14:18:00');
 
 -- --------------------------------------------------------
 
@@ -102,18 +83,6 @@ CREATE TABLE `positions` (
   `maxcon` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `positions`
---
-
-INSERT INTO `positions` (`id`, `name`, `criteria`, `type`, `maxcon`, `created_at`) VALUES
-(1, 'BOYS PREFECT', 'General', 'All', 1, '2020-03-03 14:34:00'),
-(2, 'GIRLS PREFECT', 'General', 'All', 2, '2020-03-03 15:07:00'),
-(3, 'KOFI ANNAN HOUSE PREFECT', 'Male', 'House1', 2, '2020-03-03 15:08:00'),
-(4, 'CHARLES LUANGA HOUSE PREFECT', 'Male', 'House2', 1, '2020-03-03 15:08:00'),
-(5, 'YAA ASANTEWAA HOUSE PREFECT', 'Female', 'House1', 2, '2020-03-03 15:09:00'),
-(6, 'MARY JOANNES HOUSE PREFECT', 'Female', 'House2', 2, '2020-03-03 15:09:00');
 
 -- --------------------------------------------------------
 
@@ -148,27 +117,12 @@ CREATE TABLE `voters` (
   `access_number` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
   `gender` varchar(191) NOT NULL,
-  `house` varchar(191) NOT NULL,
-  `cls` varchar(191) NOT NULL,
+  `house` varchar(191) DEFAULT NULL,
+  `cls` varchar(191) DEFAULT NULL,
   `verify` tinyint(1) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `voters`
---
-
-INSERT INTO `voters` (`id`, `access_number`, `name`, `gender`, `house`, `cls`, `verify`, `status`, `created_at`) VALUES
-(1, '11', 'KOFI OHENE', 'Male', 'House1', '1BVA', 1, 0, '2020-02-26 11:48:00'),
-(2, '12', 'AFRAKOMA FORDJOUR', 'Female', 'House2', '1BVA', 1, 0, '2020-02-26 11:48:00'),
-(3, '13', 'OSEI OWIREDU TOM', 'Male', 'House1', '1BV3', 0, 0, NULL),
-(4, '14', 'GIFTY OBENG ASARE AKUA', 'Female', 'House1', '1BV4', 0, 0, NULL),
-(5, '15', 'AKOSUA KYEREWAA ANN', 'Female', 'House2', '1BV5', 0, 0, NULL),
-(7, '16', 'CHRISTIANA OPPONG', 'Female', 'House1', '1BV3', 0, 0, NULL),
-(8, '17', 'OBENEWAA VENESSA', 'Female', 'House1', '1BV4', 0, 0, NULL),
-(9, '18', 'KWAME NHYIRA', 'Male', 'House2', '1BV5', 0, 0, NULL),
-(10, '19', 'CHRIS ADOMAKO', 'Male', 'House2', '2BVA', 0, 0, '2020-03-03 15:33:00');
 
 -- --------------------------------------------------------
 
@@ -259,7 +213,7 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `candidates`
 --
 ALTER TABLE `candidates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `general_settings`
@@ -271,13 +225,13 @@ ALTER TABLE `general_settings`
 -- AUTO_INCREMENT for table `houses`
 --
 ALTER TABLE `houses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -289,7 +243,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `voters`
 --
 ALTER TABLE `voters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `voter_carts`

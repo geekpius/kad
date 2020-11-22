@@ -9,9 +9,6 @@
 
 <?php include('../layouts/admin-menus.php'); ?>
 
-<!--start body-->
-<?php require_once('../controllers/admin/dashboard.php'); ?>
-
 <div class="row pt-2 pb-2">
   <div class="col-sm-9">
       <h4 class="page-title">Perform change password on account module</h4>

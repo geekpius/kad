@@ -111,11 +111,11 @@
                     </div>
                     <div class="form-group validate">
                         <label for="">Position Name</label>
-                        <input type="text" name="position_name" id="position_name" oninput="GetUpperCase('position_name');" class="form-control" placeholder="Enter Position Name">
+                        <input type="text" name="position_name" id="position_name" oninput="GetUpperCase('position_name');" onkeypress="return preventSpcialChar(event);" class="form-control" placeholder="Enter Position Name">
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="">Maximum Contestant</label>
+                        <label for="">Number of Contestant</label>
                         <input type="text" name="max_contestant" onkeypress="return isNumber(event)" maxlength="2" class="form-control" placeholder="Enter Maximum Contestant">
                         <span class="text-danger small" role="alert"></span>
                     </div>
@@ -144,11 +144,11 @@
                     <input type="hidden" id="pos_id" name="pos_id" readonly>
                     <div class="form-group validate">
                         <label for="input-1">Position Name</label>
-                        <input type="text" name="position_name" id="position_name1" oninput="GetUpperCase('position_name1');" class="form-control" placeholder="Enter Position Name">
+                        <input type="text" name="position_name" id="position_name1" oninput="GetUpperCase('position_name1');" onkeypress="return preventSpcialChar(event);" class="form-control" placeholder="Enter Position Name">
                         <span class="text-danger small" role="alert"></span>
                     </div>
                     <div class="form-group validate">
-                        <label for="input-1">Maximum Contestant</label>
+                        <label for="input-1">Number of Contestant</label>
                         <input type="text" name="max_contestant" onkeypress="return isNumber(event)" maxlength="2" class="form-control" placeholder="Enter Maximum Contestant">
                         <span class="text-danger small" role="alert"></span>
                     </div>
@@ -385,6 +385,27 @@ $('#example tbody').on('click', '.btn_delete', function(e){
     });
     return false;
 });
+
+
+// allower only numbers
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+  }
+
+  // dont allow . / - _
+  function preventSpcialChar(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46 || charCode == 45 || charCode == 47 || charCode==95) {
+        return false;
+    }
+    return true;
+  }
 </script> 
 
 </body>
