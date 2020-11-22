@@ -58,7 +58,7 @@
                 $stmt->execute(array(':id'=>$id));
                 //update voter status back to false
                 $stmt = $con->prepare("UPDATE voters SET status=:s WHERE id=:id");
-                $stmt->execute(array(':s'=>false, ':id'=>$id));
+                $stmt->execute(array(':s'=>0, ':id'=>$id));
                 $con->commit();
                 return 'success';
             }catch(PDOException $e){

@@ -20,6 +20,7 @@
             $voter = Model::findorFail('voters', $vote['voter_id']);
         ?>
             <tr>
+                <td><?php echo ucwords($voter['access_number']); ?></td>
                 <td><?php echo ucwords($voter['name']); ?></td>
                 <td><?php echo strtoupper($voter['cls']); ?></td>
             </tr>

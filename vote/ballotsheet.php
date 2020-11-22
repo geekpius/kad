@@ -201,7 +201,7 @@
                     <?php 
                         foreach($candidates as $can){ ?>
                         <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="110" height="110" class="img-rounded img-responsive img-thumbnail" /></td>
+                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="140" height="140" class="img-rounded img-responsive img-thumbnail" /></td>
                             <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
                             <td align="center" valign="middle" width="50px">
                                 <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
@@ -230,7 +230,7 @@
                     <?php
                         foreach($candidates as $can){ ?>
                         <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail"/></td>
+                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="150" height="150" class="img-rounded img-responsive img-thumbnail"/></td>
                             <td width="300px" align="center"><?php echo $can['name']; ?></td>
                             <td align="right" width="50px">
                                 <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
@@ -258,7 +258,7 @@
                         <table class="table table-hover table-condensed" id="cssTable">
                         <?php foreach($candidates as $can){ ?>
                             <tr>
-                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="110" height="110" class="img-rounded img-responsive img-thumbnail" /></td>
+                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="140" height="140" class="img-rounded img-responsive img-thumbnail" /></td>
                                 <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
                                 <td align="center" valign="middle" width="50px">
                                     <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
@@ -286,7 +286,7 @@
                         <table class="table table-hover table-condensed" id="cssTable">
                         <?php foreach($candidates as $can){ ?>
                             <tr>
-                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail"/></td>
+                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="150" height="150" class="img-rounded img-responsive img-thumbnail"/></td>
                                 <td width="300px" align="center"><?php echo $can['name']; ?></td>
                                 <td align="right" width="50px">
                                     <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
