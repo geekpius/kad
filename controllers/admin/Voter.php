@@ -86,8 +86,8 @@
                     $accessNo=$dataFile[0];
                     $name=$dataFile[1];
                     $gender=$dataFile[2];
-                    $cls=$dataFile[3];
-                    $house=$dataFile[4];
+                    $cls=empty($dataFile[3])? null : $dataFile[3];
+                    $house=empty($dataFile[4])? null : $dataFile[4];
                     
                     if($number!=1){
                         $stmt=$conn->prepare("INSERT INTO voters(access_number,name,gender,house,cls)VALUES(:id,:n,:g,:h,:c)");

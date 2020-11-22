@@ -39,7 +39,7 @@ if(count($candidates)>1){ ?>
     <?php 
     foreach($candidates as $can){ ?>
         <tr>
-            <td width="100px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="150px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="140" width="140" alt="<?php echo $can['name']; ?>" /></td>
             <td width="300px"><?php echo $can['name']; ?></td>
             <td width="130px"><?php echo $can['vote']; ?></td>
             <td width="250px">
@@ -60,7 +60,7 @@ if(count($candidates)>1){ ?>
     <?php 
     foreach($candidates as $can){ ?>
         <tr>
-            <td width="100px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="150px"><img src="../assets/images/candidates/<?php echo $can['image']; ?>" class="img-thumbnail mb-2" height="140" width="140" alt="<?php echo $can['name']; ?>" /></td>
             <td width="300px"><?php echo $can['name']; ?>&nbsp;&nbsp;(YES)</td>
             <td width="130px"><?php echo $can['vote']; ?></td>
             <td width="250px">
@@ -73,7 +73,7 @@ if(count($candidates)>1){ ?>
             </td>
         </tr>
         <tr>
-            <td width="100px"><img src="../assets/images/no-vote.jpg" class="img-thumbnail mb-2" height="80" width="80" alt="<?php echo $can['name']; ?>" /></td>
+            <td width="150px"><img src="../assets/images/no-vote.jpg" class="img-thumbnail mb-2" height="140" width="140" alt="<?php echo $can['name']; ?>" /></td>
             <td width="300px">Voted (NO)</td>
             <td width="130px"><?php echo ($countVoted-$sumVotes); ?></td>
             <td width="250px">
