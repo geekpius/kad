@@ -98,7 +98,7 @@
 
         /*headings*/
         .fs-title {
-            font-size: 15px;
+            font-size: 20px;
             text-transform: uppercase;
             color: #2C3E50;
             margin-bottom: 10px;
@@ -174,8 +174,33 @@
 
         #cssTable td {text-align:center; vertical-align:middle;}
 
+	 .hide-all-small-screen{
+			display: none !important;
+		  }
+		  
+		@media only screen and (max-width: 768px) {
+		  /* For mobile phones: */
+		  #msform {
+		    width: 100%;
+		    margin: 0 auto;
+		    text-align: center;
+		    position: relative;
+		    margin-top: 25px;
+		  }
+		
+		  .hide-all-big-screen{
+			display: none !important;
+		  }
+
+		  .hide-all-small-screen{
+			display: block !important;
+		  }
+		
+		}
+	
+
         </style>
-    </head>
+      </head>
     
     <body>
 
@@ -193,11 +218,11 @@
             if(count($candidates)!=1){ ?>
             <fieldset>
                 <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                <table class="table table-hover table-condensed" id="cssTable">
+                <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                 <?php 
                     foreach($candidates as $can){ ?>
                     <tr>
-                        <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="140" height="140" class="img-rounded img-responsive img-thumbnail" /></td>
+                        <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail" /></td>
                         <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
                         <td align="center" valign="middle" width="50px">
                             <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
@@ -211,6 +236,31 @@
                         <td colspan="2"></td>
                     </tr>
                 </table>
+	
+                <div class="row hide-all-small-screen">
+                    <?php 
+                    foreach($candidates as $can){ ?>
+                    <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                        <div>
+                            <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                            <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                            <div style="margin-bottom:5% !important;">
+                                <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" style="width:150px"><i class="fa fa-check-square-o"></i> Vote</button>
+                            </div>	
+                        </div>		
+                    </div>
+                    <?php } ?> 
+                    <div class="col-sm-12" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                        <div>
+                            <div></div>
+                            <div></div>
+                            <div>
+                                <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="Skipped" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> Skip</button>
+                            </div>	
+                        </div>		
+                    </div>
+                </div>
+
 
                 <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" class="s_n" style="height: 51px; display:none !important;">
                     <option value="Skipped">Skipped</option>
@@ -222,11 +272,11 @@
             <?php }else{ ?>
             <fieldset>
                 <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                <table class="table table-hover table-condensed" id="cssTable">
+                <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                 <?php
                     foreach($candidates as $can){ ?>
                     <tr>
-                        <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="150" height="150" class="img-rounded img-responsive img-thumbnail"/></td>
+                        <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail"/></td>
                         <td width="300px" align="center"><?php echo $can['name']; ?></td>
                         <td align="right" width="50px">
                             <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
@@ -235,6 +285,23 @@
                     </tr>
                 <?php } ?>
                 </table>
+
+                <div class="row hide-all-small-screen">
+                    <?php 
+                    foreach($candidates as $can){ ?>
+                    <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                        <div>
+                            <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                            <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                            <div style="margin-bottom:5% !important;">
+                                
+                                <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
+                                <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="No" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> No</button>
+                            </div>	
+                        </div>		
+                    </div>
+                    <?php } ?> 
+                </div>
 
                 <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" style="height: 51px; display: none;">
                     <option value="No">No</option>

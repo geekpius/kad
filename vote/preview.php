@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
       <!-- Icons CSS-->
       <link href="../assets/css/icons.css" rel="stylesheet" type="text/css"/>
-      <style class="csscreations">
+	  <style class="csscreations">
 		/*basic reset*/
 		* {margin: 0; padding: 0;}
 
@@ -71,8 +71,23 @@
 		}
 
 		#cssTable td {text-align:center; vertical-align:middle;}
+	
+		@media only screen and (max-width: 768px) {
+		  /* For mobile phones: */
+		  #msform {
+		    width: 100%;
+		    margin: 0 auto;
+		    text-align: center;
+		    position: relative;
+		    margin-top: 25px;
+		  }
+		
+		}
+	
+
 		</style> 
-    </head>
+
+      </head>
     
     <body>
 
@@ -87,7 +102,7 @@
 		</div>
 		<input type="hidden" name="_token" value="<?php echo $_SESSION['_token']; ?>" readonly="readonly">
 		<input type="hidden" value="<?php echo $user['id']; ?>" name="voter_id" readonly="readonly" />
-        <table class="table table-hover table-condensed" id="cssTable">
+        <table class="table table-hover table-condensed table-responsive" id="cssTable">
 		<?php
 			foreach($selectedCandidates as $s){ 
 			$can = Model::first("SELECT image FROM candidates WHERE name=:n", array(':n'=>$s['candidate'])); ?>

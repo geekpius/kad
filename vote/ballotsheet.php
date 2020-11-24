@@ -16,164 +16,188 @@
       <link href="../assets/css/icons.css" rel="stylesheet" type="text/css"/>
       <style class="csscreations">
         /*basic reset*/
-        * {margin: 0; padding: 0;}
+            * {margin: 0; padding: 0;}
 
-        html {height: 100%; background: #ffffff;}
+            html {height: 100%; background: #ffffff;}
 
-        body {font-family: montserrat, arial, verdana;}
-        /*form styles*/
+            body {font-family: montserrat, arial, verdana;}
+            /*form styles*/
+            #msform {
+                width: 700px;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+                margin-top: 25px;
+            }
+            #msform fieldset {
+                background: white;
+                border: 0 none;
+                border-radius: 3px;
+                box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+                padding: 20px 30px;
+                text-align: left;
+
+                -moz-box-sizing: border-box;
+                width: 100%;
+
+                /*stacking fieldsets above each other*/
+                position: absolute;
+            }
+            /*Hide all except first fieldset*/
+            #msform fieldset:not(:first-of-type) {display: none;}
+            /*inputs*/
+            #msform input, #msform button, #msform textarea, #msform select {
+                padding: 15px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                margin-bottom: 10px;
+                width: 100%;
+                -moz-box-sizing: border-box;
+                color: #2C3E50;
+                font-size: 13px;
+            }
+            /*buttons*/
+            #msform .action-button {
+                width: 100px;
+                background: #27AE60;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 1px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+            #msform .action-button:hover, #msform .action-button:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;}
+
+            #msform .action-button2 {
+                width: 100px;
+                background: #dc3545;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 1px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+            #msform .action-button2:hover, #msform .action-button2:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #dc3545;}
+
+            #msform #submit {
+                width: 100px;
+                background: #27AE60;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 1px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+            #msform #submit:hover, #msform #submit:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;}
+
+            /*headings*/
+            .fs-title {
+                font-size: 20px;
+                text-transform: uppercase;
+                color: #2C3E50;
+                margin-bottom: 10px;
+            }
+            .fs-subtitle {
+                font-weight: normal;
+                font-size: 13px;
+                color: #666;
+                margin-bottom: 20px;
+            }
+            /*progressbar*/
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                /*CSS counters to number the steps*/
+                counter-reset: step;
+                width: 100%;
+                text-align: center;
+            }
+            #progressbar li {
+                list-style-type: none;
+                color: white;
+                text-transform: uppercase;
+                font-size: 9px;
+                width: 9.1%;
+                float: left;
+                position: relative;
+                text-align: center;
+            }
+            #progressbar li:before {
+                content: counter(step);
+                counter-increment: step;
+                width: 20px;
+                line-height: 20px;
+                display: block;
+                font-size: 10px;
+                color: #333;
+                background: white;
+                border-radius: 3px;
+                margin: 0 auto 5px auto;
+            }
+            /*progressbar connectors*/
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 2px;
+                background: white;
+                position: absolute;
+                left: -50%;
+                top: 9px;
+                z-index: -1; /*put it behind the numbers*/
+            }
+            #progressbar li:first-child:after {/*connector not needed before the first step*/ content: none;}
+            /*marking active/completed steps green*/
+            /*The number of the step and the connector before it = green*/
+            #progressbar li.active:before,  #progressbar li.active:after{background: #27AE60; color: white;}
+
+            #logo {margin: 25px auto; width: 500px;}
+
+            #logo img {float: left;}
+
+            .clearfix {clear: both;}
+
+            #logo span {
+                display: inline-block;
+                font-size: 17px;
+                vertical-align: middle;
+                margin-top: 34px;
+                color: #000000;
+            }
+
+            td {height: 50px; width:50px;}
+
+            #cssTable td {text-align:center; vertical-align:middle;}
+
+        .hide-all-small-screen{
+            display: none !important;
+        }
+        
+        @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
         #msform {
-            width: 700px;
-            margin: 30px auto;
-            text-align: center;
-            position: relative;
-            margin-top: 25px;
-        }
-        #msform fieldset {
-            background: white;
-            border: 0 none;
-            border-radius: 3px;
-            box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-            padding: 20px 30px;
-            text-align: left;
-
-            -moz-box-sizing: border-box;
-            width: 100%;
-
-            /*stacking fieldsets above each other*/
-            position: absolute;
-        }
-        /*Hide all except first fieldset*/
-        #msform fieldset:not(:first-of-type) {display: none;}
-        /*inputs*/
-        #msform input, #msform button, #msform textarea, #msform select {
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-bottom: 10px;
-            width: 100%;
-            -moz-box-sizing: border-box;
-            color: #2C3E50;
-            font-size: 13px;
-        }
-        /*buttons*/
-        #msform .action-button {
-            width: 100px;
-            background: #27AE60;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 1px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px;
-        }
-        #msform .action-button:hover, #msform .action-button:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;}
-
-        #msform .action-button2 {
-            width: 100px;
-            background: #dc3545;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 1px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px;
-        }
-        #msform .action-button2:hover, #msform .action-button2:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #dc3545;}
-
-        #msform #submit {
-            width: 100px;
-            background: #27AE60;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 1px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px;
-        }
-        #msform #submit:hover, #msform #submit:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;}
-
-        /*headings*/
-        .fs-title {
-            font-size: 15px;
-            text-transform: uppercase;
-            color: #2C3E50;
-            margin-bottom: 10px;
-        }
-        .fs-subtitle {
-            font-weight: normal;
-            font-size: 13px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        /*progressbar*/
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            /*CSS counters to number the steps*/
-            counter-reset: step;
-            width: 100%;
-            text-align: center;
-        }
-        #progressbar li {
-            list-style-type: none;
-            color: white;
-            text-transform: uppercase;
-            font-size: 9px;
-            width: 9.1%;
-            float: left;
-            position: relative;
-            text-align: center;
-        }
-        #progressbar li:before {
-            content: counter(step);
-            counter-increment: step;
-            width: 20px;
-            line-height: 20px;
-            display: block;
-            font-size: 10px;
-            color: #333;
-            background: white;
-            border-radius: 3px;
-            margin: 0 auto 5px auto;
-        }
-        /*progressbar connectors*/
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: white;
-            position: absolute;
-            left: -50%;
-            top: 9px;
-            z-index: -1; /*put it behind the numbers*/
-        }
-        #progressbar li:first-child:after {/*connector not needed before the first step*/ content: none;}
-        /*marking active/completed steps green*/
-        /*The number of the step and the connector before it = green*/
-        #progressbar li.active:before,  #progressbar li.active:after{background: #27AE60; color: white;}
-
-        #logo {margin: 25px auto; width: 500px;}
-
-        #logo img {float: left;}
-
-        .clearfix {clear: both;}
-
-        #logo span {
-            display: inline-block;
-            font-size: 17px;
-            vertical-align: middle;
-            margin-top: 34px;
-            color: #000000;
+                width: 100%;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+                margin-top: 25px;
+            }
+        
+        .hide-all-big-screen{
+            display: none !important;
         }
 
-        td {height: 50px; width:50px;}
-
-        #cssTable td {text-align:center; vertical-align:middle;}
-
+        .hide-all-small-screen{
+            display: block !important;
+        }
+        
+        }
+	
         </style>
     </head>
     
@@ -197,11 +221,11 @@
                 if(count($candidates)!=1){ ?>
                 <fieldset>
                     <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                    <table class="table table-hover table-condensed" id="cssTable">
+                    <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                     <?php 
                         foreach($candidates as $can){ ?>
                         <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="140" height="140" class="img-rounded img-responsive img-thumbnail" /></td>
+                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail" /></td>
                             <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
                             <td align="center" valign="middle" width="50px">
                                 <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
@@ -215,6 +239,30 @@
                             <td colspan="2"></td>
                         </tr>
                     </table>
+			
+                    <div class="row hide-all-small-screen">
+                    <?php 
+                        foreach($candidates as $can){ ?>
+                        <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                            <div>
+                                <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                                <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                                <div style="margin-bottom:5% !important;">
+                                    <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" style="width:150px"><i class="fa fa-check-square-o"></i> Vote</button>
+                                </div>	
+                            </div>		
+                        </div>
+                    <?php } ?> 
+                        <div class="col-sm-12" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                            <div>
+                                <div></div>
+                                <div></div>
+                                <div>
+                                    <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="Skipped" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> Skip</button>
+                                </div>	
+                            </div>		
+                        </div>
+                    </div>
 
                     <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" class="s_n" style="height: 51px; display:none !important;">
                         <option value="Skipped">Skipped</option>
@@ -226,11 +274,11 @@
             <?php }else{ ?>
                 <fieldset>
                     <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                    <table class="table table-hover table-condensed" id="cssTable">
+                    <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                     <?php
                         foreach($candidates as $can){ ?>
                         <tr>
-                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="150" height="150" class="img-rounded img-responsive img-thumbnail"/></td>
+                            <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="130" height="130" class="img-rounded img-responsive img-thumbnail"/></td>
                             <td width="300px" align="center"><?php echo $can['name']; ?></td>
                             <td align="right" width="50px">
                                 <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
@@ -240,6 +288,23 @@
                     <?php } ?>
                     </table>
 
+                    <div class="row hide-all-small-screen">
+                    <?php 
+                        foreach($candidates as $can){ ?>
+                        <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                            <div>
+                                <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                                <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                                <div style="margin-bottom:5% !important;">
+                                    
+                                <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
+                                <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="No" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> No</button>
+                                </div>	
+                            </div>		
+                        </div>
+                        <?php } ?> 
+                    </div>
+
                     <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" style="height: 51px; display: none;">
                         <option value="No">No</option>
                         <?php foreach($candidates as $can){ ?>
@@ -247,6 +312,7 @@
                         <?php } ?>
                     </select>
                 </fieldset>
+
             <?php }
             }else{
                 if($pos['criteria']==$user['gender'] && $pos['type']==$user['house']){
@@ -255,10 +321,10 @@
                     if(count($candidates)!=1){ ?>
                     <fieldset>
                         <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                        <table class="table table-hover table-condensed" id="cssTable">
+                        <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                         <?php foreach($candidates as $can){ ?>
                             <tr>
-                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="140" height="140" class="img-rounded img-responsive img-thumbnail" /></td>
+                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="120" height="120" class="img-rounded img-responsive img-thumbnail" /></td>
                                 <td width="300px" align="center" valign="middle"><?php echo $can['name']; ?></td>
                                 <td align="center" valign="middle" width="50px">
                                     <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Vote</button>
@@ -273,6 +339,31 @@
                             </tr>
                         </table>
 
+                        <div class="row hide-all-small-screen">
+                        <?php 
+                            foreach($candidates as $can){ ?>
+                            <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                                <div>
+                                    <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                                    <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                                    <div style="margin-bottom:5% !important;">
+                                        <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" style="width:150px"><i class="fa fa-check-square-o"></i> Vote</button>
+                                    </div>	
+                                </div>		
+                            </div>
+                            <?php } ?> 
+
+                            <div class="col-sm-12" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                                <div>
+                                    <div></div>
+                                    <div></div>
+                                    <div>
+                                        <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="Skipped" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> Skip</button>
+                                    </div>	
+                                </div>		
+                            </div>
+                        </div>
+
                         <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" class="s_n" style="height: 51px; display:none !important;">
                             <option value="Skipped">Skipped</option>
                             <?php foreach($candidates as $can){ ?>
@@ -280,13 +371,14 @@
                             <?php } ?>
                         </select>
                     </fieldset>
+
                 <?php }else{ ?>
                     <fieldset>
                         <h2 class="fs-title text-primary text-uppercase"><strong><?php echo $pos['name']; ?></strong></h2>
-                        <table class="table table-hover table-condensed" id="cssTable">
+                        <table class="table table-hover table-condensed hide-all-big-screen" id="cssTable">
                         <?php foreach($candidates as $can){ ?>
                             <tr>
-                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="150" height="150" class="img-rounded img-responsive img-thumbnail"/></td>
+                                <td><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="130" height="130" class="img-rounded img-responsive img-thumbnail"/></td>
                                 <td width="300px" align="center"><?php echo $can['name']; ?></td>
                                 <td align="right" width="50px">
                                     <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)"><i class="fa fa-check-square-o"></i> Yes</button>
@@ -295,6 +387,22 @@
                             </tr>
                         <?php } ?>
                         </table>
+
+                        <div class="row hide-all-small-screen">
+                        <?php 
+                            foreach($candidates as $can){ ?>
+                            <div class="col-sm-12" align="center" style="margin-top:5% !important; border-bottom:solid; border-width:1px">
+                                <div>
+                                    <div style="margin-bottom:1% !important;"><strong><?php echo $can['name']; ?></strong></div>
+                                    <div><img src="../assets/images/candidates/<?php echo $can['image']; ?>" width="180" height="180" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" class="img-rounded img-responsive img-thumbnail next" /></div>
+                                    <div style="margin-bottom:5% !important;">
+                                        <button type="button" class="next action-button" name="<?php echo $pos['name']; ?>" id="<?php echo $can['name']; ?>" onclick="f1(this)" style="width:150px"><i class="fa fa-check-square-o"></i> Yes</button>
+                                        <button type="button" class="next action-button2" name="<?php echo $pos['name']; ?>" id="No" onclick="f1(this)"><i class="fa fa-times-circle-o"></i> No</button>
+                                    </div>	
+                                </div>		
+                            </div>
+                            <?php } ?> 
+                        </div>
 
                         <select name="<?php echo (strpos($pos['name'],' ')!==false)? str_replace(' ','_',$pos['name']):$pos['name']; ?>" id ="<?php echo $pos['name']; ?>" style="height: 51px; display: none;">
                             <option value="No">No</option>

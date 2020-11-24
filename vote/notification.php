@@ -25,7 +25,7 @@
 
 		.msform {
 			width: 600px;
-			margin: 25px auto;
+			margin: 0 auto;
 			background: white;
 			border: 0 none;
 			border-radius: 3px;
@@ -34,6 +34,16 @@
 			text-align: left;
 			-moz-box-sizing: border-box;
 			margin-top: 10%;
+		}
+
+		@media only screen and (max-width: 768px) {
+		  /* For mobile phones: */
+		  .msform {
+			width: 100%;
+			margin-top: 10%;
+		  }
+		
+		
 		}
 
 		</style>
