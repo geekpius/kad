@@ -141,6 +141,7 @@
 $("#formSetting").on('submit', function(e){
     e.preventDefault();
     e.stopPropagation();
+    var $this = $(this);
     var valid = true;
       $('#formSetting input, #formSetting select').each(function() {
           var $this = $(this);
@@ -152,21 +153,24 @@ $("#formSetting").on('submit', function(e){
       });
       if(valid) {
             $(".btn_update_time").html('<i class="fa fa-spin fa-spinner"></i> Updating...').attr('disabled', true);
-          var data = $("#formVotingTime").serialize();
+            var data = $this.serialize();
             $.ajax({
-                url: '../controllers/admin/set-time.php',
+                url: '../../controllers/admin/config.php',
                 type: 'POST',
                 data: data,
                 success: function(resp){
                     if(resp=='success'){
                         swal({
                             title: "Set",
-                            text: "Voting settings is set",
+                            text: "Settings is done",
                             type: "success",
                             confirmButtonClass: "btn-primary btn-sm",
                             confirmButtonText: "OKAY",
                             closeOnConfirm: true
                         });
+                        $("#formSetting select[name='name']").val('');
+                        $("#formSetting select[name='position']").val('');
+                        $("#formSetting input[name='contestant']").val('');
                     }
                     else{
                         swal({

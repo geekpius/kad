@@ -49,7 +49,9 @@
                         <div>
                             <span class="my-5 text-white">Position: <?php echo $can['position'];?> </span><br>
                             <span class="my-5 text-white">Gender: <?php echo ucfirst($can['gender']);?> </span><br>
+                            <?php if($user['role']=='administrator'){ ?>
                             <span class="my-5 text-white">Your Votes: <a href="javascript:void(0);" class="text-success btn_list" data-name="<?php echo $can['name'];?>"><?php echo $can['vote'];?></a></span>
+                            <?php } ?>
                         </div>
                         <a href="javascript:void(0);" title="Edit" data-toggle="tooltip" class="btn_edit" data-id="<?php echo $can['id'];?>" data-name="<?php echo $can['name'];?>" data-position="<?php echo $can['position'];?>" data-gender="<?php echo $can['gender'];?>"><i class="fa fa-edit text-white"></i></a>&nbsp;&nbsp;
                         <a href="javascript:void(0);" title="Delete" data-toggle="tooltip" data-id="<?php echo $can['id'];?>" class="btn_delete"><i class="fa fa-trash text-white"></i></a>
