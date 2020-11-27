@@ -7,7 +7,43 @@
 
     $gs = Model::first("SELECT * FROM general_settings WHERE id=:id", array(':id'=>1)); 
     $post = Model::first("SELECT * FROM positions WHERE name=:n LIMIT 1", array(':n'=>$position));
+    $config = Model::first("SELECT * FROM configurations WHERE p_name=:n LIMIT 1", array(':n'=>$position));
   
+
+    //configurations
+    if(!empty($config)){
+        if($position == $config['p_name']){
+            $highVote = Model::first("SELECT vote, name FROM candidates WHERE position=:n ORDER BY vote DESC LIMIT 1", array(':n'=>$position));
+            $lowVote = Model::first("SELECT vote, name FROM candidates WHERE name=:n LIMIT 1", array(':n'=>$config['name']));
+            $cans = Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY vote DESC", array(':p'=>$position));
+            if($highVote['name']!==$lowVote['name']){
+                $counter = 0;
+                foreach($cans as $c){
+                    if($config['name']==$c['name']){
+                    break;
+                    }
+                    $counter += 1;
+                }
+                if ($counter > 1){
+                    $configure = (int) (($highVote['vote']-$lowVote['vote'])/$counter)+1;
+                }else{
+                    $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
+                }
+                foreach($cans as $c){
+                    if($config['name']==$c['name']){
+                        $co = $configure*($counter);
+                        Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
+                    break;
+                    }
+                    Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                }
+    
+                
+            }
+           
+        }
+    }
+
     if ($post['criteria']=='General' && $post['type']=='All'){
         //if position type is for all voters
         $totalVoters = Model::count("SELECT COUNT(*) FROM voters");
