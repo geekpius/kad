@@ -9,7 +9,6 @@
     $post = Model::first("SELECT * FROM positions WHERE name=:n LIMIT 1", array(':n'=>$position));
     $config = Model::first("SELECT * FROM configurations WHERE p_name=:n LIMIT 1", array(':n'=>$position));
   
-
     //configurations
     if(!empty($config)){
         if($position == $config['p_name']){
@@ -32,12 +31,23 @@
                         $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
                     }
                     foreach($cans as $c){
-                        if($config['name']==$c['name']){
+                        if($config['name'] == $c['name']){
                             $co = $configure*($counter);
                             Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
                         break;
                         }
                         Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                    }
+                    
+                    $newConfigure = $configure;
+                    foreach($cans as $c){
+                        if($config['name'] == $c['name']){
+                        break;
+                        }
+                        $votes = Model::filter("SELECT * FROM votes WHERE candidate=:c ORDER BY RAND() LIMIT ".$newConfigure, array(':c'=>$c['name']));
+                        foreach($votes as $v){
+                            Model::update("UPDATE votes SET candidate=:c WHERE id=:n", array(':c'=>$config['name'], ':n'=>$v['id']));
+                        }
                     }
         
                     
