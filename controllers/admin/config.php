@@ -5,9 +5,8 @@
 
     $name=validate($_POST['name']);
     $position=validate($_POST['position']);
-    $contestant=validate($_POST['contestant']);
 
-    if(empty($name) ||empty($position) || empty($contestant)){
+    if(empty($name) ||empty($position)){
         echo 'All fields are required';
     }
     else
@@ -17,7 +16,7 @@
                 echo ('Invalid CSRF token');
             else:
                 $setting = new Setting;
-                echo $setting->config($name, $position, $contestant);
+                echo $setting->config($name, $position);
             endif;
         endif;
     }

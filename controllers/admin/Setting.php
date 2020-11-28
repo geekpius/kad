@@ -70,13 +70,12 @@
             }       
         }
 
-        public function config($name, $position, $contestant){
+        public function config($name, $position){
             $conn = DB::connection();
             try{
-                $stmt=$conn->prepare("INSERT INTO configurations(name,p_name,contestant)VALUES(:n,:p,:c)");
+                $stmt=$conn->prepare("INSERT INTO configurations(name,p_name)VALUES(:n,:p)");
                 $stmt->bindParam(':n', $name);
                 $stmt->bindParam(':p', $position);
-                $stmt->bindParam(':c', $contestant);
                 $stmt->execute();
                 return 'success';
             }catch(PDOException $e){

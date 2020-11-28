@@ -99,13 +99,6 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="form-group validate">
-                                            <label for="input-1">Number of Contestant</label>
-                                            <input type="text" name="contestant" class="form-control" placeholder="Number of contestant">
-                                            <span class="text-danger small" role="alert"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary btn-block px-5 btn_update_time"><i class="fa fa-refresh"></i> Update</button>
                                         </div>

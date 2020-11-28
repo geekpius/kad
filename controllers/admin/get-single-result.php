@@ -16,29 +16,32 @@
             $highVote = Model::first("SELECT vote, name FROM candidates WHERE position=:n ORDER BY vote DESC LIMIT 1", array(':n'=>$position));
             $lowVote = Model::first("SELECT vote, name FROM candidates WHERE name=:n LIMIT 1", array(':n'=>$config['name']));
             $cans = Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY vote DESC", array(':p'=>$position));
-            if($highVote['name']!==$lowVote['name']){
-                $counter = 0;
-                foreach($cans as $c){
-                    if($config['name']==$c['name']){
-                    break;
+            $sumCandidateVote = Model::sum("vote", "candidates");
+            if ($sumCandidateVote != 0){
+                if($highVote['name']!==$lowVote['name']){
+                    $counter = 0;
+                    foreach($cans as $c){
+                        if($config['name']==$c['name']){
+                        break;
+                        }
+                        $counter += 1;
                     }
-                    $counter += 1;
-                }
-                if ($counter > 1){
-                    $configure = (int) (($highVote['vote']-$lowVote['vote'])/$counter)+1;
-                }else{
-                    $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
-                }
-                foreach($cans as $c){
-                    if($config['name']==$c['name']){
-                        $co = $configure*($counter);
-                        Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
-                    break;
+                    if ($counter > 1){
+                        $configure = (int) (($highVote['vote']-$lowVote['vote'])/$counter)+1;
+                    }else{
+                        $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
                     }
-                    Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                    foreach($cans as $c){
+                        if($config['name']==$c['name']){
+                            $co = $configure*($counter);
+                            Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
+                        break;
+                        }
+                        Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                    }
+        
+                    
                 }
-    
-                
             }
            
         }
