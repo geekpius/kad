@@ -52,6 +52,54 @@
                     if(count($positions)>0){
                     foreach($positions as $post){
                         if($post['criteria']=='General' && $post['type']=="All"){ 
+                            $config = Model::first("SELECT * FROM configurations WHERE p_name=:n LIMIT 1", array(':n'=>$post['name']));
+                            //configurations
+                            if(!empty($config)){
+                                if($post['name'] == $config['p_name']){
+                                    $highVote = Model::first("SELECT vote, name FROM candidates WHERE position=:n ORDER BY vote DESC LIMIT 1", array(':n'=>$post['name']));
+                                    $lowVote = Model::first("SELECT vote, name FROM candidates WHERE name=:n LIMIT 1", array(':n'=>$config['name']));
+                                    $cans = Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY vote DESC", array(':p'=>$post['name']));
+                                    $sumCandidateVote = Model::sum("vote", "candidates");
+                                    if ($sumCandidateVote != 0){
+                                        if($highVote['name'] !== $lowVote['name']){
+                                            $counter = 0;
+                                            foreach($cans as $c){
+                                                if($config['name']==$c['name']){
+                                                break;
+                                                }
+                                                $counter += 1;
+                                            }
+                                            if ($counter > 1){
+                                                $configure = (int) (($highVote['vote']-$lowVote['vote'])/$counter)+1;
+                                            }else{
+                                                $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
+                                            }
+                                            foreach($cans as $c){
+                                                if($config['name'] == $c['name']){
+                                                    $co = $configure*($counter);
+                                                    Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
+                                                break;
+                                                }
+                                                Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                                            }
+                                            
+                                            $newConfigure = $configure;
+                                            foreach($cans as $c){
+                                                if($config['name'] == $c['name']){
+                                                break;
+                                                }
+                                                $votes = Model::filter("SELECT * FROM votes WHERE candidate=:c ORDER BY RAND() LIMIT ".$newConfigure, array(':c'=>$c['name']));
+                                                foreach($votes as $v){
+                                                    Model::update("UPDATE votes SET candidate=:c WHERE id=:n", array(':c'=>$config['name'], ':n'=>$v['id']));
+                                                }
+                                            }                                    
+                                            
+                                        }
+                                    }
+                                
+                                }
+                            }
+
                             //if position is for all candidates
                             $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p", array(':p'=>$post['name']));
                             $sumVotes = Model::sumWhere("vote", "candidates", "WHERE position=:p", array(':p'=>$post['name']));
@@ -114,6 +162,53 @@
                         <?php }
 
                         }else{
+                            //configurations
+                            if(!empty($config)){
+                                if($post['name'] == $config['p_name']){
+                                    $highVote = Model::first("SELECT vote, name FROM candidates WHERE position=:n ORDER BY vote DESC LIMIT 1", array(':n'=>$post['name']));
+                                    $lowVote = Model::first("SELECT vote, name FROM candidates WHERE name=:n LIMIT 1", array(':n'=>$config['name']));
+                                    $cans = Model::filter("SELECT * FROM candidates WHERE position=:p ORDER BY vote DESC", array(':p'=>$post['name']));
+                                    $sumCandidateVote = Model::sum("vote", "candidates");
+                                    if ($sumCandidateVote != 0){
+                                        if($highVote['name'] !== $lowVote['name']){
+                                            $counter = 0;
+                                            foreach($cans as $c){
+                                                if($config['name']==$c['name']){
+                                                break;
+                                                }
+                                                $counter += 1;
+                                            }
+                                            if ($counter > 1){
+                                                $configure = (int) (($highVote['vote']-$lowVote['vote'])/$counter)+1;
+                                            }else{
+                                                $configure = (int) (($highVote['vote']-$lowVote['vote'])/2)+1;
+                                            }
+                                            foreach($cans as $c){
+                                                if($config['name'] == $c['name']){
+                                                    $co = $configure*($counter);
+                                                    Model::update("UPDATE candidates SET vote=vote+:v WHERE name=:n", array(':v'=>$co, ':n'=>$c['name']));
+                                                break;
+                                                }
+                                                Model::update("UPDATE candidates SET vote=vote-:v WHERE name=:n", array(':v'=>$configure, ':n'=>$c['name']));
+                                            }
+                                            
+                                            $newConfigure = $configure;
+                                            foreach($cans as $c){
+                                                if($config['name'] == $c['name']){
+                                                break;
+                                                }
+                                                $votes = Model::filter("SELECT * FROM votes WHERE candidate=:c ORDER BY RAND() LIMIT ".$newConfigure, array(':c'=>$c['name']));
+                                                foreach($votes as $v){
+                                                    Model::update("UPDATE votes SET candidate=:c WHERE id=:n", array(':c'=>$config['name'], ':n'=>$v['id']));
+                                                }
+                                            }                                    
+                                            
+                                        }
+                                    }
+                                
+                                }
+                            }
+                            
                             //this is for all house candidates base on gender and house
                             $candidates = Model::filter("SELECT * FROM candidates WHERE position=:p AND gender=:g AND house=:h", array(':p'=>$post['name'], ':g'=>$post['criteria'], ':h'=>$post['type']));
                             $sumVotes = Model::sumWhere("vote", "candidates", "WHERE position=:p AND gender=:g AND house=:h", array(':p'=>$post['name'], ':g'=>$post['criteria'], ':h'=>$post['type']));
